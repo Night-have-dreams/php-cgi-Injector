@@ -13,8 +13,8 @@
 - ✅ **支持 `system()` 命令執行**
 - ✅ **支持 `eval()`任意代碼執行**
 - ✅ **支持上傳與下載檔案**
-- ✅ **可自動記錄執行歷史 (`--log`)**
-- ✅ **支持自動轉換輸出編碼，避免亂碼**
+- ✅ **可自動記錄命令執行歷史 (`--log`)**
+- ✅ **自動轉換輸出編碼，避免亂碼**
 
 ---
 
@@ -44,18 +44,18 @@ pip install requests urllib3 chardet
 ## **🛠️ 使用方法**
 ### **📌 基本用法**
 ```bash
-python exploit.py -u <目標網站>
+python exploit.py -u <目標網站> [--timeout=sec] [--log]
 ```
 範例：
 ```bash
-python exploit.py -u http://example.com
+python exploit.py -u http://example.com --timeout=30 --log
 ```
 
 ### **📌 參數選項**
 | 參數 | 說明 | 範例 |
 |------|------|------|
 | `-u` | 指定目標網站 | `-u http://example.com` |
-| `--timeout=秒數` | 設定請求超時 (`1-120` 秒)，`0` 代表無限等待 | `--timeout=30` |
+| `--timeout=sec` | 設定請求超時 (`1-120` 秒)，`0` 代表無限等待 | `--timeout=30` |
 | `--log` | 啟用 Shell 模式的自動記錄 | `--log` |
 
 ---
