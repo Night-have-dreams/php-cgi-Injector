@@ -36,7 +36,7 @@ pip install -r requirements.txt
 ```
 或者手動安裝：
 ```bash
-pip install requests urllib3 chardet
+pip install requests requests-tor chardet urllib3 rich
 ```
 
 ---
@@ -44,11 +44,11 @@ pip install requests urllib3 chardet
 ## **🛠️ 使用方法**
 ### **📌 基本用法**
 ```bash
-python exploit.py -u <目標網站> [--timeout=sec] [--log]
+python exploit.py -u <目標網站> [--timeout=sec] [--log] [--tor]
 ```
 範例：
 ```bash
-python exploit.py -u http://example.com --timeout=30 --log
+python exploit.py -u http://example.com --timeout=30 --log --tor
 ```
 
 ### **📌 參數選項**
@@ -57,7 +57,7 @@ python exploit.py -u http://example.com --timeout=30 --log
 | `-u` | 指定目標網站 | `-u http://example.com` |
 | `--timeout=sec` | 設定請求超時 (`1-120` 秒)，`0` 代表無限等待 | `--timeout=30` |
 | `--log` | 啟用 Shell 模式的自動記錄 | `--log` |
-
+| `--tor  | 啟用tor路由 | `--tor` |
 ---
 
 ## **📌 操作模式**
