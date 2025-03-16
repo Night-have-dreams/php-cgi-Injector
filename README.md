@@ -8,7 +8,9 @@
 
 ## **📌 介紹**
 本工具可用於測試 **PHP-CGI 環境中的參數注入漏洞**，並提供：
+- ✅ **超酷的banner動畫**
 - ✅ **自動掃描漏洞**
+- ✅ **Tor隱藏攻擊流量**
 - ✅ **多種攻擊模式**
 - ✅ **支持 `system()` 命令執行**
 - ✅ **支持 `eval()`任意代碼執行**
@@ -57,7 +59,7 @@ python exploit.py -u http://example.com --timeout=30 --log --tor
 | `-u` | 指定目標網站 | `-u http://example.com` |
 | `--timeout=sec` | 設定請求超時 (`1-120` 秒)，`0` 代表無限等待 | `--timeout=30` |
 | `--log` | 啟用 Shell 模式的自動記錄 | `--log` |
-| `--tor  | 啟用tor路由 | `--tor` |
+| `--tor`  | 使用tor路由 | `--tor` |
 ---
 
 ## **📌 操作模式**
