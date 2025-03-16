@@ -1,3 +1,5 @@
 requests
 urllib3
 chardet
+requests-tor
+rich
