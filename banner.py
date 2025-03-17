@@ -620,7 +620,7 @@ def play_banner(use_tor=False):
 def Show_Disclaimer():
     print("""
 [*] CVE-2024-4577 & CVE-2024-8926 Exploitation Tool
-[*] Version: 1.1.1
+[*] Version: 1.1.2
 [*] Author: Night-have-dreams
 [*] 僅供合法安全測試，請勿用於未經授權的系統！
 [*] 使用者應自行承擔使用本工具所產生的風險
