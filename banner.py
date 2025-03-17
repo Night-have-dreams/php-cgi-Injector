@@ -20,7 +20,7 @@ def color_gradient(text, start_color, end_color, step, start_step, end_step):
 
         return f"[rgb({red},{green},{blue})]{text}[/rgb({red},{green},{blue})]"
 
-# 逐幀 Banner 畫面（依據你的設計）
+# 逐幀 Banner 畫面
 frames = [
 #1
     r"""
@@ -615,7 +615,7 @@ def play_banner(use_tor=False):
         # **確保動畫結束後顯示固定顏色畫面**
         final_frame = color_gradient(frames[min(max_frames - 1, len(frames) - 1)], start_color, end_color, color_change_end, color_change_start, color_change_end)
         live.update(final_frame)
-        time.sleep(0.5)  # 停留  秒，確保畫面不會馬上被清除
+        time.sleep(0.5)  # 停留0.5秒，確保畫面不會馬上被清除
     
 def Show_Disclaimer():
     print("""
