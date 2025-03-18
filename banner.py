@@ -615,13 +615,16 @@ def play_banner(use_tor=False):
         # **確保動畫結束後顯示固定顏色畫面**
         final_frame = color_gradient(frames[min(max_frames - 1, len(frames) - 1)], start_color, end_color, color_change_end, color_change_start, color_change_end)
         live.update(final_frame)
-        time.sleep(0.5)  # 停留0.5秒，確保畫面不會馬上被清除
+        time.sleep(0.3)  # 停留0.3秒，確保畫面不會馬上被清除
     
 def Show_Disclaimer():
-    print("""
-[*] CVE-2024-4577 & CVE-2024-8926 Exploitation Tool
-[*] Version: 1.1.2
-[*] Author: Night-have-dreams
-[*] 僅供合法安全測試，請勿用於未經授權的系統！
-[*] 使用者應自行承擔使用本工具所產生的風險
-""")
+    print("\n[*] CVE-2024-4577 & CVE-2024-8926 Exploitation Tool")
+    time.sleep(0.1) 
+    print("[*] Version: 1.2.0")
+    time.sleep(0.1)
+    print("[*] Author: Night-have-dreams")
+    time.sleep(0.1)
+    print("[*] 僅供合法安全測試，請勿用於未經授權的系統！")
+    time.sleep(0.1)
+    print("[*] 使用者應自行承擔使用本工具所產生的風險\n")
+    time.sleep(0.1)
