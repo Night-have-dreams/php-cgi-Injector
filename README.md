@@ -12,6 +12,7 @@
 - ✅ **自動掃描漏洞**
 - ✅ **Tor隱藏攻擊流量**
 - ✅ **多種攻擊模式**
+- ✅ **支持多個Payload切換**
 - ✅ **支持 `system()` 命令執行**
 - ✅ **支持 `eval()`任意代碼執行**
 - ✅ **支持上傳與下載檔案**
@@ -47,11 +48,11 @@ pip install requests requests-tor chardet urllib3 rich
 ## **🛠️ 使用方法**
 ### **📌 基本用法**
 ```bash
-python exploit.py -u <目標網站> [--timeout=sec] [--log] [--tor]
+python exploit.py -u <目標網站> [--timeout=sec] [--log] [--payload num] [--tor]
 ```
 範例：
 ```bash
-python exploit.py -u http://example.com --timeout=30 --log --tor
+python exploit.py -u http://example.com --timeout=30 --log --payload --tor
 ```
 
 ### **📌 參數選項**
@@ -60,6 +61,7 @@ python exploit.py -u http://example.com --timeout=30 --log --tor
 | `-u` | 指定目標網站 | `-u http://example.com` |
 | `--timeout=sec` | 設定請求超時 (`1-120` 秒)，`0` 代表無限等待 | `--timeout=30` |
 | `--log` | 啟用 Shell 模式的自動記錄 | `--log` |
+| `--payload`  | 切換payload | `--payload` |
 | `--tor`  | 使用tor路由 | `--tor` |
 ---
 
@@ -158,5 +160,7 @@ EOF --save C:\output\info.html
 |------|------|
 | 1.1.2 | 修復命令與任意代碼執行時，編碼問題導致的錯誤。 |
 | | 修復執行結果單次儲存默認本地檔案命名的邏輯問題。 |
+| 1.2.0 | 修復tor路由連線問題。 |
+| | 新增tor自動檢測與連線、Payload自選功能。 |
 ---
 
