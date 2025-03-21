@@ -13,11 +13,12 @@
 - ✅ **Tor隱藏攻擊流量**
 - ✅ **多種攻擊模式**
 - ✅ **預設多個Payload切換與自訂Payload**
+- ✅ **多種Bypass WAF模組**
 - ✅ **支持 `system()` 命令執行**
 - ✅ **支持 `eval()`任意代碼執行**
 - ✅ **支持上傳與下載檔案**
 - ✅ **可自動記錄命令執行歷史 (`--log`)**
-- ✅ **自動轉換輸出編碼，避免亂碼**
+- ✅ **自動轉換輸出編碼**
 
 ---
 
@@ -48,7 +49,7 @@ pip install requests requests-tor chardet urllib3 rich
 ## **🛠️ 使用方法**
 ### **📌 基本用法**
 ```bash
-python exploit.py -u <目標網站> [--timeout=sec] [--log] [--payload num] [--tor] [--verbose]
+python exploit.py [-h] -u URL [--timeout TIMEOUT] [--log] [--verbose] [--payload [PAYLOAD]] [--tor] [--bypass]
 ```
 範例：
 ```bash
@@ -58,12 +59,13 @@ python exploit.py -u http://example.com --timeout=30 --log --payload --tor --ver
 ### **📌 參數選項**
 | 參數 | 說明 | 範例 |
 |------|------|------|
-| `-u` | 指定目標網站 | `-u http://example.com` |
-| `--timeout=sec` | 設定請求超時 (`1-120` 秒)，`0` 代表無限等待 | `--timeout=30` |
+| `-u` 、 `--url` | 指定目標網站 | `-u http://example.com` |
+| `--timeout sec` | 設定請求超時 (`1-120` 秒)，`0` 代表無限等待 | `--timeout=30` |
 | `--log` | 啟用 Shell 模式的自動記錄 | `--log` |
-| `--payload`  | 切換或自訂payload | `--payload` 、 `--payload 2` 、 `--payload C`|
-| `--tor`  | 使用tor路由 | `--tor` |
+| `--payload`  | 切換或自訂payload組合 | `--payload` 、 `--payload 2` 、 `--payload C` |
+| `--tor`  | 使用tor發送請求 | `--tor` |
 | `--verbose` | 列出更詳細的測試訊息 | `--verbose` |
+| `--bypass` | 進入bypass WAF測試模式 | `--bypass` |
 ---
 
 ## **📌 操作模式**
@@ -167,5 +169,8 @@ EOF --save C:\output\info.html
 | | 新增自訂payload功能。 |
 | | 修補Linux上tor連線問題。 |
 | 1.3.1 | 修補未找到漏洞時，payload切換的bug |
+| 1.4.0 | 新增bypass模式 |
+| | 優化exploit.py |
+| | 彩蛋動畫 |
 ---
 
