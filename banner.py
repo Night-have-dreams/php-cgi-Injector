@@ -620,7 +620,7 @@ def play_banner(use_tor=False):
 def Show_Disclaimer():
     print("\n[*] CVE-2024-4577 & CVE-2024-8926 Exploitation Tool")
     time.sleep(0.1) 
-    print("[*] Version: 1.3.0")
+    print("[*] Version: 1.3.1")
     time.sleep(0.1)
     print("[*] Author: Night-have-dreams")
     time.sleep(0.1)
