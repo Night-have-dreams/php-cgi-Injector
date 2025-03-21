@@ -166,5 +166,6 @@ EOF --save C:\output\info.html
 | 1.3.0 | 新增詳細輸出，用於更好的判斷與調適。 |
 | | 新增自訂payload功能。 |
 | | 修補Linux上tor連線問題。 |
+| 1.3.1 | 修補未找到漏洞時，payload切換的bug |
 ---
 
