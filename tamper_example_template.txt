@@ -1,0 +1,24 @@
+# tamper_example_template.py
+
+name = "tamper_example_template" # 使用的腳本名稱
+description = "【範例模板】說明 tamper 模組的基本結構，無實際修改效果" # bypass腳本說明
+
+def tamper(data):
+    """
+    tamper 模組的主要函式，用來修改請求中的 payload 或 headers 等欄位。
+
+    參數：
+        data (dict): 請求資料字典，包含以下常見欄位：
+            - url (str): 目標 URL
+            - cgipoint (str): CGI 路徑
+            - payload (str): 目前的 Payload 字串
+            - headers (dict): HTTP 表頭
+            - post_data (str): POST 傳送的資料
+            - element_ids (list[int]): Payload 元素 ID 清單
+            - cve_id (str): 當前使用的 CVE 編號（例如 "CVE-2024-4577"）
+
+    回傳：
+        dict: 修改後的資料字典（通常會直接在原資料上修改）
+    """
+    # 範例：完全不修改任何欄位
+    return data
