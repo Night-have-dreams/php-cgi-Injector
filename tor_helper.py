@@ -27,12 +27,19 @@ def check_tor():
     if not RequestsTor:
         return False
     try:
-        # 先用 requests 測試，確保 Tor 瀏覽器的 SOCKS 代理可用
+        # 先用 requests 測試，確保 Tor 瀏覽器或 Tor 服務的 SOCKS 代理可用
         response = requests.get("https://check.torproject.org/api/ip", proxies=PROXIES, timeout=10)
         if response.status_code == 200:
             ip_check = response.json().get("IP", "未知")
             print(f"[*] Tor 代理已啟用，當前出口 IP: {ip_check}")
-            return RequestsTor()  # 改成不帶參數，讓 requests-tor 自動偵測代理
+            # === 修改開始：根據系統決定 RequestsTor 初始化方式 ===
+            if IS_WINDOWS:
+                # 如果使用 Tor Browser（預設 9150），直接不帶參數
+                return RequestsTor()
+            else:
+                # Linux/macOS 預設指定系統 Tor 的 9050 port
+                return RequestsTor(tor_ports=(9050,))
+            # === 修改結束 ===
     except Exception as e:
         print(f"[!] 無法連接 Tor 代理: {e}")
         return False

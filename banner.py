@@ -604,7 +604,7 @@ def play_banner(use_tor=False):
         max_frames = 30  # 只播放 30 幀
 
     color_change_start = 16  # 第 17 幀開始變色
-    color_change_end = 22  # 第 23 幀變色結束
+    color_change_end = 20  # 第 21 幀變色結束
 
     with Live("", console=console, refresh_per_second=10) as live:
         for i, frame in enumerate(frames[:max_frames]):
@@ -620,7 +620,7 @@ def play_banner(use_tor=False):
 def Show_Disclaimer():
     print("\n[*] CVE-2024-4577 & CVE-2024-8926 Exploitation Tool")
     time.sleep(0.1) 
-    print("[*] Version: 1.2.0")
+    print("[*] Version: 1.3.0")
     time.sleep(0.1)
     print("[*] Author: Night-have-dreams")
     time.sleep(0.1)
