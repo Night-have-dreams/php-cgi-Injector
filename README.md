@@ -19,6 +19,8 @@
 - ✅ **支持上傳與下載檔案**
 - ✅ **可自動記錄命令執行歷史 (`--log`)**
 - ✅ **自動轉換輸出編碼**
+- ❌ 不支援泡咖啡，但支援烘烤 WAF。
+- ❌ 不支援幫你打報告、追女友或考上研究所。
 
 ---
 
@@ -60,7 +62,7 @@ python exploit.py -u http://example.com --timeout=30 --log --payload --tor --ver
 | 參數 | 說明 | 範例 |
 |------|------|------|
 | `-u` 、 `--url` | 指定目標網站 | `-u http://example.com` |
-| `--timeout sec` | 設定請求超時 (`1-120` 秒)，`0` 代表無限等待 | `--timeout=30` |
+| `--timeout sec` | 設定請求超時 (`1-120` 秒)，`0` 代表無限等待 | `--timeout 30` 、  `--timeout 0` |
 | `--log` | 啟用 Shell 模式的自動記錄 | `--log` |
 | `--payload`  | 切換或自訂payload組合 | `--payload` 、 `--payload 2` 、 `--payload C` |
 | `--tor`  | 使用tor發送請求 | `--tor` |
