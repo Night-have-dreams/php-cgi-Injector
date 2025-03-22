@@ -2,6 +2,7 @@ import time
 import sys
 from rich.console import Console
 from rich.live import Live
+from rich import print as rprint
 
 console = Console()
 
@@ -22,8 +23,112 @@ def color_gradient(text, start_color, end_color, step, start_step, end_step):
 
 # 逐幀 Banner 畫面
 frames = [
+#0
+    r"""                                                                            
+""",
 #1
     r"""
+                                                                                
+""",#2                                               
+    r"""
+                                  
+                                               
+""",#3
+    r"""
+                                         
+                                        
+                                        
+""",#4
+    r"""
+                                                      
+                                                        
+                                        
+                                      
+""",#5
+    r"""
+                                                                         
+                                                                          
+                                                           
+                                             
+                                             
+""",#6
+    r"""
+                                             
+                                                  
+                                                  
+                                                  
+                                                  
+                                                       
+""",#7
+    r"""
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+""",#8
+    r"""
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+""",#9
+    r"""
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+""",#10
+    r"""
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+""",#11
+    r"""
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+""",
+#12
+    r"""
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+                                             
+      
+                                              
 """,
 #2
     r"""
@@ -1000,30 +1105,29 @@ frames = [
     r"""""",                                                                  
 ]
 
-def play_banner(use_tor=False, enable_bypass=False):
-    """ 播放動畫，根據 use_tor 和 enable_bypass 決定顏色與播放幀數 """
+def play_banner(use_tor=False, enable_bypass=False):        
     if use_tor:
         start_color = (255, 255, 255)  # 白色
         end_color = (100, 0, 150)      # 深紫色
-        play_ranges = [(0, len(frames))]  # 播放全部幀
+        play_ranges = [(0, 55)]        
     elif enable_bypass:
         start_color = (255, 255, 255)  # 白色
-        end_color = (0, 200, 0)      # 深橘紅（可自定）
-        play_ranges = [(0, 30), (43, len(frames))]  # 播前30幀 + 跳到43開始
+        end_color = (0, 200, 0)        # 螢光綠色
+        play_ranges = [(0, 42), (55, len(frames))]  # 播前41幀 + 跳到54開始
     else:
         start_color = (255, 255, 255)  # 白色
         end_color = (150, 20, 20)      # 柔紅色
-        play_ranges = [(0, 30)]        # 只播放 30 幀
+        play_ranges = [(0, 42)]        # 只播放 41 幀
 
-    color_change_start = 16
-    color_change_end = 20
+    color_change_start = 28
+    color_change_end = 32
 
     with Live("", console=console, refresh_per_second=10) as live:
         for start, end in play_ranges:
             for i in range(start, min(end, len(frames))):
                 colored_frame = color_gradient(frames[i], start_color, end_color, i, color_change_start, color_change_end)
                 live.update(colored_frame)
-                time.sleep(0.083)
+                time.sleep(0.042)
 
         # 顯示最後一幀
         last_frame = frames[min(end - 1, len(frames) - 1)]
@@ -1032,16 +1136,31 @@ def play_banner(use_tor=False, enable_bypass=False):
         if enable_bypass:
             time.sleep(0.8)
         else:
-            time.sleep(0.3)
+            time.sleep(0.25)
     
 def Show_Disclaimer():
-    print("\n[*] CVE-2024-4577 & CVE-2024-8926 Exploitation Tool")
-    time.sleep(0.1) 
-    print("[*] Version: 1.4.0")
-    time.sleep(0.1)
-    print("[*] Author: Night-have-dreams")
-    time.sleep(0.1)
-    print("[*] 僅供合法安全測試，請勿用於未經授權的系統！")
-    time.sleep(0.1)
-    print("[*] 使用者應自行承擔使用本工具所產生的風險\n")
-    time.sleep(0.5)
+    console = Console()
+    lines = [
+        "[bold cyan]╔════════════════════════════════════════════════════════════╗[/bold cyan]",
+        "[bold cyan]║[/bold cyan] [white] CVE-2024-4577 & CVE-2024-8926 Exploitation Tool          [/white] [bold cyan]║[/bold cyan]",
+        "[bold cyan]║                                                            ║[/bold cyan]",
+        "[bold cyan]║[/bold cyan] [white] 致敬漏洞發現者[/white] 🍊 [bold orange3]Orange Tsai[/bold orange3]                             [bold cyan]║[/bold cyan]",
+        "[bold cyan]╠════════════════════════════════════════════════════════════╣[/bold cyan]",
+        "[bold cyan]║[/bold cyan]  [white]Version:[/white] [bold]1.4.1[/bold]                                            [bold cyan]║[/bold cyan]",
+        "[bold cyan]║                                                            ║[/bold cyan]",
+        "[bold cyan]║[/bold cyan]  [white]Author :[/white] 🌙 [bold medium_purple3]Night-have-dreams[/bold medium_purple3]                             [bold cyan]║[/bold cyan]",
+        "[bold cyan]║                                                            ║[/bold cyan]",
+        "[bold cyan]║[/bold cyan]  [white]GitHub :[/white] [blue]https://github.com/Night-have-dreams[/blue]             [bold cyan]║[/bold cyan]",
+        "[bold cyan]╠════════════════════════════════════════════════════════════╣[/bold cyan]",
+        "[bold cyan]║[/bold cyan]  [yellow]僅供合法安全測試，請勿用於未經授權的系統！[/yellow]                [bold cyan]║[/bold cyan]",
+        "[bold cyan]║                                                            ║[/bold cyan]",
+        "[bold cyan]║[/bold cyan]  [yellow]使用者應自行承擔使用本工具所產生的風險[/yellow]                    [bold cyan]║[/bold cyan]",
+        "[bold cyan]╚════════════════════════════════════════════════════════════╝[/bold cyan]",
+    ]
+
+    for line in lines:
+        console.print(line)
+        time.sleep(0.04)
+    time.sleep(0.3)
+
+

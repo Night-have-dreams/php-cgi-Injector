@@ -1,5 +1,6 @@
 import os
 import importlib.util
+from rich import print as rprint
 
 # 模組所在資料夾
 TAMPER_DIR = os.path.join(os.path.dirname(__file__), "bypass_modules")
@@ -23,9 +24,9 @@ def load_all_tampers():
                 if hasattr(mod, "name") and hasattr(mod, "description"):
                     tamper_info[mod.name] = mod.description
                 else:
-                    print(f"[!] 模組 {filename} 缺少必要資訊，將略過")
+                    rprint(f"[bold red][!] 模組 {filename} 缺少必要資訊，將略過[/bold red]")
             except Exception as e:
-                print(f"[!] 載入 {filename} 失敗: {e}")
+                rprint(f"[bold red][!] 載入 {filename} 失敗: {e}[/bold red]")
 
     return tamper_info
 
@@ -48,6 +49,6 @@ def load_tamper_functions(selected_names):
                 if hasattr(mod, "name") and mod.name in selected_names and hasattr(mod, "tamper"):
                     tamper_funcs.append(mod.tamper)
             except Exception as e:
-                print(f"[!] 載入 tamper 函式失敗: {filename} - {e}")
+                rprint(f"[bold red][!] 載入 tamper 函式失敗: {filename} - {e}[/bold red]")
 
     return tamper_funcs

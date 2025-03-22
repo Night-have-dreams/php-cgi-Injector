@@ -3,52 +3,48 @@ import time
 import subprocess
 import os
 import requests
+from rich import print as rprint
+from rich.panel import Panel
+from rich.console import Console
+from rich.text import Text
+from rich.markdown import Markdown
+from rich.syntax import Syntax
+from rich.table import Table
 
 try:
     from requests_tor import RequestsTor
 except ImportError:
-    print("[!] 警告：請安裝 `requests-tor` 以支援 Tor 代理: pip install requests-tor")
+    rprint("[bold dark_violet][!] 警告：請安裝 `requests-tor` 以支援 Tor 代理: pip install requests-tor[/bold dark_violet]")
     RequestsTor = None
 
-# 偵測作業系統
 IS_WINDOWS = platform.system().lower() == "windows"
-
-# 設定 Tor 代理端口
 TOR_PORT = 9150 if IS_WINDOWS else 9050
 
-# 直接設定 Proxies（用於 Windows）
 PROXIES = {
     "http": f"socks5h://127.0.0.1:{TOR_PORT}",
     "https": f"socks5h://127.0.0.1:{TOR_PORT}"
 }
 
 def check_tor():
-    """檢查 Tor 代理是否可用，回傳 RequestsTor 會話或 False"""
     if not RequestsTor:
         return False
     try:
-        # 先用 requests 測試，確保 Tor 瀏覽器或 Tor 服務的 SOCKS 代理可用
         response = requests.get("https://check.torproject.org/api/ip", proxies=PROXIES, timeout=10)
         if response.status_code == 200:
             ip_check = response.json().get("IP", "未知")
-            print(f"[*] Tor 代理已啟用，當前出口 IP: {ip_check}")
-            # === 修改開始：根據系統決定 RequestsTor 初始化方式 ===
+            rprint(f"[medium_purple][*] Tor 代理已啟用，當前出口 IP: {ip_check}[/medium_purple]")
             if IS_WINDOWS:
-                # 如果使用 Tor Browser（預設 9150），直接不帶參數
                 return RequestsTor()
             else:
-                # Linux/macOS 預設指定系統 Tor 的 9050 port
                 return RequestsTor(tor_ports=(9050,))
-            # === 修改結束 ===
     except Exception as e:
-        print(f"[!] 無法連接 Tor 代理: {e}")
+        rprint(f"[bold dark_violet][!] 無法連接 Tor 代理: {e}[/bold dark_violet]")
         return False
     return False
 
 def start_tor():
-    """自動啟動 Tor（Windows: Tor 瀏覽器，Linux/macOS: Tor 服務）"""
     if IS_WINDOWS:
-        print("[*] 嘗試開啟 Tor 瀏覽器...")
+        rprint("[orchid][*] 嘗試開啟 Tor 瀏覽器...[/orchid]")
         possible_paths = [
             os.path.expandvars(r"%APPDATA%\Tor Browser\Browser\firefox.exe"),
             r"C:\Program Files\Tor Browser\Browser\firefox.exe",
@@ -57,42 +53,42 @@ def start_tor():
             r"C:\Users\Public\Desktop\Tor Browser\Browser\firefox.exe"
         ]
         tor_path = next((path for path in possible_paths if os.path.exists(path)), None)
-        
+
         if not tor_path:
-            print("[!] 找不到 Tor 瀏覽器，請手動開啟 Tor！")
+            rprint("[bold dark_violet][!] 找不到 Tor 瀏覽器，請手動開啟 Tor！[/bold dark_violet]")
             return False
         subprocess.Popen(tor_path, shell=True)
     else:
-        print("[*] 嘗試啟動 Tor 服務...")
+        rprint("[orchid][*] 嘗試啟動 Tor 服務...[/orchid]")
         subprocess.Popen("tor &", shell=True)
-    
-    print("[*] 等待 Tor 啟動中...")
-    time.sleep(10)  # 等待 Tor 啟動
+
+    rprint("[orchid][*] 等待 Tor 啟動中...[/orchid]")
+    time.sleep(10)
     return check_tor()
 
 def get_tor_session():
-    """回傳 RequestsTor 會話，如果不可用則詢問是否啟動 Tor"""
-    print("[*] 嘗試啟動 Tor 代理...")
-    print("[*] Tor 代理回應時間較長，建議設定 --timeout")
+    rprint("[medium_purple][*] 嘗試啟動 Tor 代理...[/medium_purple]")
+    rprint("[dim][!] Tor 代理回應時間較長，建議設定 --timeout[/dim]")
 
     tor_session = check_tor()
     if not tor_session:
         if IS_WINDOWS:
-            print("[!] 錯誤：無法連接 Tor 代理，請確認 Tor 瀏覽器是否開啟！")
-            print("[*] 請確保 Tor 瀏覽器已開啟，並且 `SOCKS 代理` 設定為 `127.0.0.1:9150`")
+            rprint("[bold dark_violet][!] 無法連接 Tor 代理，請確認 Tor 瀏覽器是否開啟！[/bold dark_violet]")
+            rprint("[orchid][*] 請確保 Tor 瀏覽器已開啟，並且 SOCKS 代理 設定為 127.0.0.1:9150[/orchid]")
         else:
-            print("[!] 錯誤：無法連接 Tor 代理，請確認 Tor 服務是否運行！")
-            print("[*] Linux 用戶請嘗試執行: `sudo systemctl start tor`")
-        
+            rprint("[bold dark_violet][!] 無法連接 Tor 代理，請確認 Tor 服務是否運行！[/bold dark_violet]")
+            rprint("[orchid][*] Linux 用戶請嘗試執行: sudo systemctl start tor[/orchid]")
+
         user_input = input("[?] 是否要自動開啟 Tor？ (Y/N): ").strip().lower()
+        print()
         if user_input == "y":
             tor_session = start_tor()
             if tor_session:
-                print("[*] Tor 成功啟動！")
+                rprint("[bold orchid][+] Tor 成功啟動！[/bold orchid]\n")
             else:
-                print("[!] Tor 啟動失敗，請手動開啟！")
+                rprint("[bold dark_violet][!] Tor 啟動失敗，請手動開啟！[/bold dark_violet]\n")
                 return None
         else:
-            print("[!] Tor 未啟動，無法使用 --tor 模式！")
+            rprint("[bold red][!] Tor 未啟動，無法使用 --tor 模式！[/bold red]")
             return None
     return tor_session
