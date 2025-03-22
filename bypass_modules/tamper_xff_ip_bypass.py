@@ -1,6 +1,6 @@
-# tamper_xxf_ip_bypass.py
+# tamper_xff_ip_bypass.py
 
-name = "tamper_xxf_ip_bypass"
+name = "tamper_xff_ip_bypass"
 description = "加入 X-Forwarded-For 等常見偽造 IP 表頭，模擬來源為內網 127.0.0.1，以繞過 IP 限制"
 
 def tamper(data):
