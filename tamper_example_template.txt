@@ -1,24 +1,41 @@
 # tamper_example_template.py
 
-name = "tamper_example_template" # 使用的腳本名稱
-description = "【範例模板】說明 tamper 模組的基本結構，無實際修改效果" # bypass腳本說明
+name = "tamper_example_template"  # 模組名稱，將顯示於選單中
+description = "【範例模板】展示 tamper 模組的結構與使用方式，預設添加自定註解於 payload 結尾"
 
 def tamper(data):
     """
-    tamper 模組的主要函式，用來修改請求中的 payload 或 headers 等欄位。
+    tamper 模組的主要函式，用來修改送出的請求內容。
+    
+    傳入的 data 為 dict 物件，內容包含以下欄位：
+    
+    - url (str)                ：目標網站的 URL（不包含 payload 與參數）
+    - cgipoint (str)           ：目前測試的 CGI 執行路徑（例：/php-cgi/php-cgi.exe）
+    - payload (str)            ：QueryString 的 payload 組合（會附加在 URL 後）
+    - headers (dict)           ：HTTP headers，可增加如 User-Agent、X-Forwarded-For 等欄位
+    - post_data (str)          ：POST 實體內容，通常是 PHP payload
+    - element_ids (list[int])  ：目前所使用 payload 的元素編號清單
+    - cve_id (str)             ：目前使用的 CVE 漏洞編號（例如 "CVE-2024-4577"）
+    - attempt (int)            ：第幾次重試（由主程式傳入）
 
-    參數：
-        data (dict): 請求資料字典，包含以下常見欄位：
-            - url (str): 目標 URL
-            - cgipoint (str): CGI 路徑
-            - payload (str): 目前的 Payload 字串
-            - headers (dict): HTTP 表頭
-            - post_data (str): POST 傳送的資料
-            - element_ids (list[int]): Payload 元素 ID 清單
-            - cve_id (str): 當前使用的 CVE 編號（例如 "CVE-2024-4577"）
+    模組可以選擇性修改上述欄位中的任意一項，最後需回傳修改後的 data（可原地修改）。
 
     回傳：
-        dict: 修改後的資料字典（通常會直接在原資料上修改）
+        dict - 已修改過的請求資料
     """
-    # 範例：完全不修改任何欄位
+
+    # ========== 示例區開始 ==========
+
+    # 讀取當前重試次數，可根據次數改變混淆策略
+    attempt_number = data.get("attempt", 0)
+
+    # 在 payload 結尾添加註解，幫助辨識 tamper 是否生效
+    if isinstance(data.get("payload"), str):
+        data["payload"] += f"+%23tampered_{attempt_number}"  # %23 為 URL 中的 '#' 符號（註解）
+
+    # 加入測試用 Header，可供伺服器端識別
+    data["headers"]["X-Debug-Tamper"] = f"example_template_attempt_{attempt_number}"
+
+    # ========== 示例區結束 ==========
+
     return data
