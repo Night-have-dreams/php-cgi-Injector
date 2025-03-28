@@ -52,3 +52,21 @@ def load_tamper_functions(selected_names):
                 rprint(f"[bold red][!] 載入 tamper 函式失敗: {filename} - {e}[/bold red]")
 
     return tamper_funcs
+
+def apply_bypass(req, modules, attempt=0):
+
+    tamper_funcs = load_tamper_functions(modules)
+    req["attempt"] = attempt  # 第 n 次重試，提供每個模組可依需求使用
+
+    for tamper_func in tamper_funcs:
+        try:
+            req = tamper_func(req)  # 每個模組對 req 進行修改
+        except Exception as e:
+            rprint(f"[bold red][!] tamper 套用失敗：{tamper_func.__name__} - {e}[/bold red]")
+
+    return req
+
+
+
+
+

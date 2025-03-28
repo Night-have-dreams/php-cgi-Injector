@@ -1137,8 +1137,11 @@ def play_banner(use_tor=False, enable_bypass=False):
             time.sleep(0.8)
         else:
             time.sleep(0.25)
-    
-def Show_Disclaimer():
+  
+def print_static_banner():
+    rprint(frames[42])
+
+def Show_Disclaimer(no_effects=False):
     console = Console()
     lines = [
         "[bold cyan]╔════════════════════════════════════════════════════════════╗[/bold cyan]",
@@ -1146,7 +1149,7 @@ def Show_Disclaimer():
         "[bold cyan]║                                                            ║[/bold cyan]",
         "[bold cyan]║[/bold cyan] [white] 致敬漏洞發現者[/white] 🍊 [bold orange3]Orange Tsai[/bold orange3]                             [bold cyan]║[/bold cyan]",
         "[bold cyan]╠════════════════════════════════════════════════════════════╣[/bold cyan]",
-        "[bold cyan]║[/bold cyan]  [white]Version:[/white] [bold]1.4.1[/bold]                                            [bold cyan]║[/bold cyan]",
+        "[bold cyan]║[/bold cyan]  [white]Version:[/white] [bold]1.5.0[/bold]                                            [bold cyan]║[/bold cyan]",
         "[bold cyan]║                                                            ║[/bold cyan]",
         "[bold cyan]║[/bold cyan]  [white]Author :[/white] 🌙 [bold medium_purple3]Night-have-dreams[/bold medium_purple3]                             [bold cyan]║[/bold cyan]",
         "[bold cyan]║                                                            ║[/bold cyan]",
@@ -1160,7 +1163,9 @@ def Show_Disclaimer():
 
     for line in lines:
         console.print(line)
-        time.sleep(0.04)
-    time.sleep(0.3)
+        if not no_effects:
+            time.sleep(0.04)
+    if not no_effects:
+        time.sleep(0.3)
 
 
