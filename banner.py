@@ -1149,7 +1149,7 @@ def Show_Disclaimer(no_effects=False):
         "[bold cyan]║                                                            ║[/bold cyan]",
         "[bold cyan]║[/bold cyan] [white] 致敬漏洞發現者[/white] 🍊 [bold orange3]Orange Tsai[/bold orange3]                             [bold cyan]║[/bold cyan]",
         "[bold cyan]╠════════════════════════════════════════════════════════════╣[/bold cyan]",
-        "[bold cyan]║[/bold cyan]  [white]Version:[/white] [bold]1.5.0[/bold]                                            [bold cyan]║[/bold cyan]",
+        "[bold cyan]║[/bold cyan]  [white]Version:[/white] [bold]1.5.1[/bold]                                            [bold cyan]║[/bold cyan]",
         "[bold cyan]║                                                            ║[/bold cyan]",
         "[bold cyan]║[/bold cyan]  [white]Author :[/white] 🌙 [bold medium_purple3]Night-have-dreams[/bold medium_purple3]                             [bold cyan]║[/bold cyan]",
         "[bold cyan]║                                                            ║[/bold cyan]",
