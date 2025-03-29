@@ -44,6 +44,5 @@ def tamper(data):
     new_chunks.insert(insert_index, fake_param)
 
     data["payload"] = "+".join(new_chunks)
-    print(f"[{name}] 使用 prefix: {prefix}")
-    print(f"[{name}] payload 改為：{data['payload']}")
+
     return data
